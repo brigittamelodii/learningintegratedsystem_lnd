@@ -32,13 +32,10 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->hasRole('superadmin')) {
+        if ($user->hasRole('superadmin|manager|executive')) {
             return $this->handleSuperAdminDashboard($request);
         }
         
-        if ($user->hasRole(['manager', 'executive'])) {
-            return $this->adminDashboard($request);
-        }
 
         if ($user->hasRole('pic')) {
             return $this->picDashboard($request);
